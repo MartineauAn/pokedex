@@ -1,0 +1,22 @@
+{% extends 'pokedexapp/layout/base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden
+        }
+    </style>
+{% endblock styles %}
+
+{% block content %}
+
+    <canvas id="bg"></canvas>
+
+{% endblock content %}
+
+{% block scripts %}
+    <script type="module" src="{% static "pokedexapp/bg.js" %}"></script>
+{% endblock scripts %}
