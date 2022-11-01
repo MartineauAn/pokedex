@@ -4,20 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title>Pokédex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     {% block styles %}{% endblock %} 
 </head>
 <body>
+  <div class="h-screen w-full">
     {% block content %}{% endblock %} 
-    
-    <!-- <script src="{% static "pokedexapp/three.js" %}"></script>--> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.146.0/three.min.js" integrity="sha512-Wft1v8e5sfJmolWfOyea3DBsf2qHZv6uBKLkvEYNSUo0wImWa9DYZH1lHU5y/UIfQu4xJ3xahqv1X4pvx3cv/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="importmap">
-        {
-          "imports": {
-            "three": "https://unpkg.com/three@0.146.0/build/three.module.js"
-          }
-        }
-      </script>
+  </div>
+
+  </div> 
       <script>
         const chemin = "{% static "pokedexapp" %}"
       </script>
