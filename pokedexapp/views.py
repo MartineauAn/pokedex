@@ -14,3 +14,6 @@ def pokedex(request):
     else :
         pokemon = {}
     return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon})
+
+def index(request):
+    return render(request,"pokedexapp/teams.html",{})
