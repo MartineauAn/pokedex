@@ -15,5 +15,5 @@ def pokedex(request):
         pokemon = {}
     return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon})
 
-def index(request):
+def teams(request):
     return render(request,"pokedexapp/teams.html",{})
