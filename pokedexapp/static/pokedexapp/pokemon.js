@@ -20,37 +20,6 @@ loader.load(
 
         const pokemon = gltf.scene;
         scene.add(pokemon);
-       
-        let vFoV = camera.getEffectiveFOV();
-        let hFoV = camera.fov * camera.aspect;
-
-        let FoV = Math.min(vFoV, hFoV);
-        let FoV2 = FoV / 2;
-
-        let dir = new THREE.Vector3();
-        camera.getWorldDirection(dir);
-
-        let bb = pokemon.geometry.boundingBox;
-        let bs = pokemon.geometry.boundingSphere;
-        let bsWorld = bs.center.clone();
-        pokemon.localToWorld(bsWorld);
-
-        let th = FoV2 * Math.PI / 180.0;
-        let sina = Math.sin(th);
-        let R = bs.radius;
-        let FL = R / sina;
-
-        let cameraDir = new THREE.Vector3();
-        camera.getWorldDirection(cameraDir);
-
-        let cameraOffs = cameraDir.clone();
-        cameraOffs.multiplyScalar(-FL);
-        let newCameraPos = bsWorld.clone().add(cameraOffs);
-
-        camera.position.copy(newCameraPos);
-        camera.lookAt(bsWorld);
-        controls.target.copy(bsWorld);
-
         controls.update();
 
    },
