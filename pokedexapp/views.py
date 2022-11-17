@@ -17,6 +17,14 @@ def pokedex(request):
     return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon})
 
 def teams(request):
+
+    req = requests.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=151")
+    if req.status_code == 200 :
+        pokemon = req.json()
+    else :
+        pokemon = {}
+
+
     form = TeamsForm()
     try:
         print(Teams.objects.get(id=1).pokemon_1_id)
@@ -30,9 +38,7 @@ def teams(request):
     if request.method == 'POST':
         print(request.POST)
         # form.save()
-
-        
-    context = {'form' : form}
+    context = {'form' : form, 'pokemon': pokemon}
     return render(request,"pokedexapp/teams.html",context)
 
 
