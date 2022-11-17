@@ -11,9 +11,96 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    {{form}}      
+    <label for="pokemon_1_id">Your name: </label>
+    <input id="pokemon_1_id" type="text" name="pokemon_1_id">
+    <!-- {{form }}       -->
+
+    <select id="pokemon_2_id" name="pokemon_2_id" class="w-full h-full">
+        <option selected>Choose a country</option>
+        <option value="1"> <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"></option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+        <option style="background:url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png') no-repeat; width:10px; height:10px;"></option>
+
+    </select>
+
     <input type="submit" value="Enregistrer">
-    <div class="rounded-full bg-amber-200 w-16 h-16 justify-center">A</div>  
+
+
+
+
+    <div class="grid grid-cols-10">
+        <div>
+            <div class="flex justify-center rounded-full bg-gray-100 w-32 h-full grid grid-rows-6 grid-flow-col gap-4">
+                <div class="rounded-full bg-gray-300 w-16 h-16">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16">
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-6xl">+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="rounded-full bg-gray-100 w-32 h-full content-center">
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 content-center">
+                    +
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="rounded-full bg-gray-100 w-32 h-full content-center">
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+                </div>  
+                <div class="rounded-full bg-gray-300 w-16 h-16 content-center">
+                    +
+                </div>
+            </div>
+        </div>
+    </div>
+   
 
 </form>
 

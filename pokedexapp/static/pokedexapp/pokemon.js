@@ -8,7 +8,7 @@ renderer.setClearColor( 0x000000, 0 );
 renderer.setPixelRatio(container.devicePixelRatio);
 renderer.setSize(container.offsetWidth, container.offsetHeight);
 container.appendChild(renderer.domElement)
-
+/* TEST */
 /* Helpers */
 const gridHelper = new THREE.GridHelper(200, 50);
 scene.add(gridHelper);
