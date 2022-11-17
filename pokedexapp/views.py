@@ -4,7 +4,6 @@ from .forms import TeamsForm
 
 
 def index(request):
-    text = "<h1> Hello world ! </h1>"
     return render(request,"pokedexapp/dashboard.html",{})
 
 

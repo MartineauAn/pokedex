@@ -14,7 +14,6 @@ var loader = new GLTFLoader();
 loader.load(
    chemin + "/objects/133.glb",
    function ( gltf ) {
-        gltf.scene.scale.set(0.1,0.1,0.1);
         fitCameraToCenteredObject(camera,gltf.scene,100,controls)
         scene.add(gltf.scene);
    },
