@@ -1,0 +1,73 @@
+
+
+{% for team in teams %}
+    <div class="flex justify-center w-full h-full">
+        <div class="flex justify-center h-1/6">
+            {{ team.name }}
+        </div>
+        <div class="flex justify-center rounded-full bg-gray-100 w-5/6 h-5/6 grid grid-rows-6 grid-flow-col gap-1">
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer mt-1 hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 1)">
+                {% if team.pokemon_1_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_1_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}
+            </div>  
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 2)">
+                {% if team.pokemon_2_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_2_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}
+            </div>  
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 3)">
+                {% if team.pokemon_3_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_3_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}
+            </div>  
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 4)">
+                {% if team.pokemon_4_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_4_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}
+            </div>  
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 5)">
+                {% if team.pokemon_5_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_5_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}
+            </div>  
+            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 6)">
+                {% if team.pokemon_6_id != None %}
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_6_id }}.png">
+                {% else %}
+                    <div class="flex justify-center items-center h-full w-full">
+                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                    </div>
+                {% endif %}   
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <button class="p-2 m-3 bg-red-600 hover:bg-red-800 rounded-md" onclick="deleteTeam('{{ team.id }}')">
+                <p class="font-bold text-white" >
+                    Supprimer
+                </p>
+            </button>
+        </div>
+    </div>
+{% endfor %} 
+

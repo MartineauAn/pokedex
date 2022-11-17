@@ -6,121 +6,44 @@
 
 {% block content %}
 
-<h3>Teams</h3>
-<hr>
-<!-- 
-<form action="" method="post">
-    {% csrf_token %}
-    <label for="pokemon_1_id">Your name: </label>
-    <input id="pokemon_1_id" type="text" name="pokemon_1_id">
-
-
-
-    <input type="submit" value="Enregistrer">
-
-
-
-
-    <div class="grid grid-cols-10">
-        <div>
-            <div class="flex justify-center rounded-full bg-gray-100 w-32 h-full grid grid-rows-6 grid-flow-col gap-4">
-                <div class="rounded-full bg-gray-300 w-16 h-16">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16">
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-6xl">+</p>
-                    </div>
-                </div>
-            </div>
+<div class="flex flex-col h-screen">
+    <div class="h-16 w-full sticky top-0 z-50 bg-gray-100">
+        <div class="flex justify-end">
+           <input type="text" placeholder="Nom d'équipe" id="team_name" class="w-64 p-2 m-2 rounded-md border border-black placeholder:font-italic">
+            {% csrf_token %}
+            <button class="p-2 bg-green-600 hover:bg-green-800 rounded-md m-2 text-white font-bold" onclick="addTeam()">
+                Ajouter
+            </button> 
         </div>
-        <div>
-            <div class="rounded-full bg-gray-100 w-32 h-full content-center">
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 content-center">
-                    +
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="rounded-full bg-gray-100 w-32 h-full content-center">
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 justify-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
-                </div>  
-                <div class="rounded-full bg-gray-300 w-16 h-16 content-center">
-                    +
-                </div>
-            </div>
-        </div>
-    </div> -->
-   
-    <div class="p-3">
-        <button onclick="openModal(true)" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">
-            OUVIR MODAL MON PETIT ANTOINE
-        </button>
     </div>
     
-    <!-- overlay -->
-    <div id="modal_overlay" class="hidden absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0">
-    
-    <!-- modal -->
-    <div id="modal" class="pacity-0 transform -translate-y-full scale-150  relative w-11/12 md:w-3/4 h-3/4 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300 overflow-x-hidden overflow-y-auto">
-    
+    <div id="teams" class="grid grid-cols-8 gap-1 flex-grow m-3"></div>
+</div>
+
+        <!-- overlay -->
+        <div id="modal_overlay" class="hidden absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0">
+
+        <!-- modal -->
+        <div id="modal" class="pacity-0 transform -translate-y-full scale-150  relative w-11/12 md:w-3/4 h-3/4 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300 overflow-x-hidden overflow-y-auto">
+        <input type="number" id="team" hidden>
+        <input type="number" id="position" hidden>
         <div class="modal-dialog modal-dialog-scrollable relative w-auto pointer-events-none">
             <div
-              class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-              <div
+                class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                <div
                 class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
                 <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
                     Choisir son pokémon ! 
                 </h5>
                 <button type="button"
-                  class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                  data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body relative p-4 grid grid-cols-5 gap-3">
+                    class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body relative p-4 grid grid-cols-5 gap-3">
                 {% for pokemon in pokemon.results %}
 
-                <div class="flex flex-col w-full items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img class="object-cover w-1/3 rounded-t-lg h-1/3 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="">
+                <div class="flex flex-col w-full items-center bg-white border hover:cursor-pointer rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700" onclick="updateTeam('{{ forloop.counter }}')">
+                    <img class="object-cover w-1/3 rounded-t-lg h-1/3 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ forloop.counter }}.png" alt="">
                     <div class="flex flex-col justify-between p-4 leading-normal">
                         <h5 class="mb-2 text-l font-bold tracking-tight text-gray-900 dark:text-white"> #{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}</h5>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{pokemon.name}}</p>
@@ -128,19 +51,19 @@
                 </div>
 
                 {% endfor %}
-              </div>
-              <div
+                </div>
+                <div
                 class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
                 <button type="button"
-                  class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
-                  data-bs-dismiss="modal"
-                  onclick="openModal(false)"
-                  >
-                  Close
+                    class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                    data-bs-dismiss="modal"
+                    onclick="openModal(false)"
+                    >
+                    Close
                 </button>
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
         
         <!-- <button 
         onclick="openModal(false)"
@@ -180,36 +103,137 @@
     </div>
      -->
     </div>
-    
-</form>
 
 {% endblock content %}
 
 {% block scripts %}
 
 <script>
+    const urlu = "{% url 'teamUpdate' %}";
+    const urla = "{% url 'teamAdd' %}";
+    const urlt = "{% url 'teamAll' %}";
+    
+
+    var postion = document.getElementById("position")
+    var team = document.getElementById("team")
+
+    postion.value = 0
+    team.value = 0
+
     const modal_overlay = document.querySelector('#modal_overlay');
     const modal = document.querySelector('#modal');
-    function openModal (value){
+
+    function openModal (value, t = 0, p = 0){
         const modalCl = modal.classList
         const overlayCl = modal_overlay
+        team.value = 0
+        postion.value = 0
     
-        if(value){
-        overlayCl.classList.remove('hidden')
-        setTimeout(() => {
-            modalCl.remove('opacity-0')
-            modalCl.remove('-translate-y-full')
-            modalCl.remove('scale-150')
-        }, 100);
+        if(value && parseInt(t) > 0 && parseInt(p) > 0){
+            team.value = parseInt(t)
+            postion.value = parseInt(p)
+            overlayCl.classList.remove('hidden')
+            setTimeout(() => {
+                modalCl.remove('opacity-0')
+                modalCl.remove('-translate-y-full')
+                modalCl.remove('scale-150')
+            }, 100);
         } else {
-        modalCl.add('-translate-y-full')
-        setTimeout(() => {
-            modalCl.add('opacity-0')
-            modalCl.add('scale-150')
-        }, 100);
-        setTimeout(() => overlayCl.classList.add('hidden'), 300);
+            modalCl.add('-translate-y-full')
+            setTimeout(() => {
+                modalCl.add('opacity-0')
+                modalCl.add('scale-150')
+            }, 100);
+            setTimeout(() => overlayCl.classList.add('hidden'), 300);
         }
     }
-    openModal(true)
+
+    function addTeam(){
+        let name = document.getElementById("team_name");
+        let token = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+        if(name != ""){
+            let formData = new FormData();
+            formData.append('name', name.value);
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST", urla, true);
+            xhr.setRequestHeader("X-CSRFToken",token);
+            xhr.send(formData);
+
+            xhr.onload = function(){
+                if(xhr.status == 200){
+                    refreshTeams();
+                    toastr.success(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+                    name.value = "";
+                }
+                else {
+                    toastr.error(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+                }
+            }
+        }
+
+    }
+
+    function updateTeam(pokemonId){
+
+        let token = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+
+        let formData = new FormData();
+        formData.append('team', team.value);
+        formData.append('position', postion.value);
+        formData.append('pokemon', pokemonId);
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open("POST", urlu, true);
+        xhr.setRequestHeader("X-CSRFToken",token);
+        xhr.send(formData);
+
+        xhr.onload = function(){
+            if(xhr.status == 200){
+                openModal(false);
+                refreshTeams()
+                toastr.success(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+            }
+            else {
+                toastr.error(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+            }
+        }
+
+    }
+
+    function deleteTeam(id){
+        let token = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+        
+        let xhr = new XMLHttpRequest()
+
+        xhr.open("DELETE", "/teams/delete/" + id, true)
+        xhr.setRequestHeader("X-CSRFToken",token);
+        xhr.send();
+        xhr.onload = function(){
+            if(xhr.status == 200){
+                refreshTeams()
+                toastr.success(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+            }
+            else {
+                toastr.error(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+            }
+        }
+    };
+    refreshTeams();
+
+    function refreshTeams(){
+        let xhr = new XMLHttpRequest()
+
+        xhr.open("GET", urlt, true)
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("teams").innerHTML = this.responseText;
+            }
+        }
+        xhr.send();
+    };
+    refreshTeams();
+    //openModal(true)
 </script>
 {% endblock scripts %}
