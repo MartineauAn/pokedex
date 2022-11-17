@@ -1,0 +1,24 @@
+{% extends 'pokedexapp/layout/base.html' %}
+
+{% load static %}
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+
+<h3>Teams</h3>
+<hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form}}      
+    <input type="submit" value="Enregistrer">
+    <div class="rounded-full bg-amber-200 w-16 h-16 justify-center">A</div>  
+
+</form>
+
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

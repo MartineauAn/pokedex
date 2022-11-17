@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 import requests
+from .forms import TeamsForm
 
 
 def index(request):
@@ -14,3 +15,12 @@ def pokedex(request):
     else :
         pokemon = {}
     return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon})
+
+def teams(request):
+    form = TeamsForm()
+
+    if request.method == 'POST':
+        print(request.POST)
+        
+    context = {'form' : form}
+    return render(request,"pokedexapp/teams.html",context)
