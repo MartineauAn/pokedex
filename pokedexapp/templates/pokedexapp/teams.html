@@ -6,38 +6,19 @@
 
 {% block content %}
 
-    <div class="flex bg-blue-300 h-full">
-        <h1>Equipe</h1>
-    </div>
+<h3>Teams</h3>
+<hr>
 
+<form action="" method="post">
+    {% csrf_token %}
+    {{form}}      
+    <input type="submit" value="Enregistrer">
+    <div class="rounded-full bg-amber-200 w-16 h-16 justify-center">A</div>  
+
+</form>
 
 {% endblock content %}
 
 {% block scripts %}
-    <script src="./static/pokedexapp/three.js"></script>
-    <script src="./static/pokedexapp/orbitControls.js"></script>
-    <script src="./static/pokedexapp/gtlfLoader.js"></script>
-    <script src="./static/pokedexapp/pokemon.js"></script>
-    <script>
 
-        afficher(1);
-
-        function afficher(numero){
-            var httpRequest = new XMLHttpRequest()
-            httpRequest.open("GET","https://pokeapi.co/api/v2/pokemon/" + numero);
-            httpRequest.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    const pokemon = JSON.parse(this.response)
-                    console.log(JSON.parse(this.response))
-                    document.querySelector("#name").innerHTML = String(pokemon.name).toUpperCase()
-                    document.querySelector("#number").innerHTML = (pokemon.id < 10 ? "00" : pokemon.id < 100 ? "0" : "") + pokemon.id
-                }
-            }
-            httpRequest.send();
-            
-        }
-
-
-
-    </script>
 {% endblock scripts %}
