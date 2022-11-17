@@ -5,7 +5,6 @@
 {% endblock styles %}
 
 {% block content %}
-
     <div class="flex bg-blue-300 h-full">
         <div class="flex-none w-14 h-full bg-amber-200">
 
@@ -27,20 +26,20 @@
 
             </div> 
         </div>
-
         <div class="flex-1 overflow-auto grid grid-rows-6 grid-flow-col gap-4">
             <div class="flex justify-center p-1 m-2 row-span-1 h-16">
-                <input type="text" class="p-3 w-11/12" placeholder="Rechercher...">
+                <input type="text" onkeyup="chercher(this)" class="p-3 w-11/12" placeholder="Rechercher...">
             </div>
-            <div class="overflow-auto row-span-1 row-span-5 h-full">
+            <div id="pokemon_list" class="overflow-auto row-span-1 row-span-5 h-full">
                 {% for pokemon in pokemon.results %}
-                    <div onclick="afficher({{forloop.counter}})" class="m-2 shadow-md bg-amber-200 border-sm border-black rounded-l-full p-3 hover:bg-amber-500 hover:cursor-pointer">
+                    <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" onclick="afficher({{forloop.counter}})" class="affichage m-2 shadow-md bg-amber-200 border-sm border-black rounded-l-full p-3 hover:bg-amber-500 hover:cursor-pointer">
                         <div class="flex justify-start ml-2 font-bold">
                             #{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }} - {{ pokemon.name }}
                         </div>   
                     </div>
                 {% endfor %}
-            </div>  
+                </div>   
+            
         </div>
     </div>
 
@@ -54,6 +53,12 @@
     <script src="./static/pokedexapp/pokemon.js"></script>
     <script>
 
+        const dimRef = {
+            x: 0.036014377111069695,
+            y: 0.04604668111333994,
+            z: 0.054992468419668206
+        }
+
         afficher(1);
 
         function afficher(numero){
@@ -61,15 +66,76 @@
             httpRequest.open("GET","https://pokeapi.co/api/v2/pokemon/" + numero);
             httpRequest.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    const pokemon = JSON.parse(this.response)
-                    console.log(JSON.parse(this.response))
-                    document.querySelector("#name").innerHTML = String(pokemon.name).toUpperCase()
-                    document.querySelector("#number").innerHTML = (pokemon.id < 10 ? "00" : pokemon.id < 100 ? "0" : "") + pokemon.id
+                    const pokemons = JSON.parse(this.response)
+                    document.querySelector("#name").innerHTML = String(pokemons.name).toUpperCase()
+                    document.querySelector("#number").innerHTML = (pokemons.id < 10 ? "00" : pokemons.id < 100 ? "0" : "") + pokemons.id
+                    
+                    if (objetPokemon != undefined){
+                       scene.remove(objetPokemon); 
+                    }
+                    
+                    loader = new GLTFLoader();
+                    loader.load( 
+                    chemin + "/objects/" + pokemons.id + ".glb",
+                    function ( gltf ) {
+                        
+                        objetPokemon = gltf.scene;
+
+                        console.log(objetPokemon.position)
+
+                        objetPokemon.position.set(0,0,0);
+
+                        const box = new THREE.Box3().setFromObject(objetPokemon); 
+                        const size = box.getSize(new THREE.Vector3());
+
+                        console.log(size)
+
+                        fitCameraToCenteredObject(camera,objetPokemon,50,controls)
+
+                        //objetPokemon.scale.set(0.75, 0.75, 0.75);
+                        scene.add(objetPokemon);
+                        //camera.lookAt(objetPokemon.position);
+                        //controls.update();
+
+                    },
+                    );
                 }
             }
             httpRequest.send();
             
         }
+
+        function chercher(object){
+
+            if(object.value != ""){
+                elems = document.querySelectorAll("#pokemon_list .affichage:not([id*='" + object.value + "'])");
+                elemsV = document.querySelectorAll("#pokemon_list .affichage[id*='" + object.value + "']");
+
+                hide(elems);
+                show(elemsV);
+            }
+            else{
+                elems = document.querySelectorAll("#pokemon_list .affichage");
+
+                show(elems);
+            }
+            
+
+
+        }
+
+        function hide(elements){
+            elements.forEach(element => {
+                element.hidden = true;
+            });
+        }
+
+        function show(elements){
+            elements.forEach(element => {
+                element.hidden = false;
+            });  
+        }
+
 
 
 
