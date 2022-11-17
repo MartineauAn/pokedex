@@ -11,7 +11,7 @@ container.appendChild(renderer.domElement)
 
 /* Helpers */
 const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(gridHelper);
+//scene.add(gridHelper);
 var loader = new GLTFLoader();
 
 const pointLight = new THREE.PointLight(0xffffff);
@@ -37,7 +37,7 @@ function onWindowResize(){
 function animate(){
     requestAnimationFrame(animate);
     controls.update();
-    //console.log(controls.object.position)
+    //console.log(camera.position)
     renderer.render(scene, camera);
 }
 

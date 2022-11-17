@@ -85,17 +85,18 @@
 
                         objetPokemon.position.set(0,0,0);
 
+                        objetPokemon.rotateY(0.40)
+
                         const box = new THREE.Box3().setFromObject(objetPokemon); 
                         const size = box.getSize(new THREE.Vector3());
 
                         console.log(size)
 
-                        fitCameraToCenteredObject(camera,objetPokemon,50,controls)
+                        fitCameraToCenteredObject(camera,objetPokemon,size.y > 10 ? 2 : 65,controls)
 
-                        //objetPokemon.scale.set(0.75, 0.75, 0.75);
+                        camera.position.y = 3
+
                         scene.add(objetPokemon);
-                        //camera.lookAt(objetPokemon.position);
-                        //controls.update();
 
                     },
                     );
