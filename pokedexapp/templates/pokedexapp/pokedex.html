@@ -47,6 +47,12 @@
     <script src="./static/pokedexapp/pokemon.js"></script>
     <script>
 
+        const dimRef = {
+            x: 0.036014377111069695,
+            y: 0.04604668111333994,
+            z: 0.054992468419668206
+        }
+
         afficher(1);
 
         function afficher(numero){
@@ -54,12 +60,39 @@
             httpRequest.open("GET","https://pokeapi.co/api/v2/pokemon/" + numero);
             httpRequest.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    const pokemon = JSON.parse(this.response)
-                    console.log(JSON.parse(this.response))
-                    document.querySelector("#name").innerHTML = String(pokemon.name).toUpperCase()
-                    document.querySelector("#number").innerHTML = (pokemon.id < 10 ? "00" : pokemon.id < 100 ? "0" : "") + pokemon.id
+                    const pokemons = JSON.parse(this.response)
+                    document.querySelector("#name").innerHTML = String(pokemons.name).toUpperCase()
+                    document.querySelector("#number").innerHTML = (pokemons.id < 10 ? "00" : pokemons.id < 100 ? "0" : "") + pokemons.id
+                    
+                    if (objetPokemon != undefined){
+                       scene.remove(objetPokemon); 
+                    }
+                    
+                    loader = new GLTFLoader();
+                    loader.load( 
+                    chemin + "/objects/" + pokemons.id + ".glb",
+                    function ( gltf ) {
+                        
+                        objetPokemon = gltf.scene;
 
-                    console.log(camera)
+                        console.log(objetPokemon.position)
+
+                        objetPokemon.position.set(0,0,0);
+
+                        const box = new THREE.Box3().setFromObject(objetPokemon); 
+                        const size = box.getSize(new THREE.Vector3());
+
+                        console.log(size)
+
+                        fitCameraToCenteredObject(camera,objetPokemon,50,controls)
+
+                        //objetPokemon.scale.set(0.75, 0.75, 0.75);
+                        scene.add(objetPokemon);
+                        //camera.lookAt(objetPokemon.position);
+                        //controls.update();
+
+                    },
+                    );
                 }
             }
             httpRequest.send();
