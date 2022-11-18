@@ -108,7 +108,14 @@
 
                         console.log(size)
 
-                        fitCameraToCenteredObject(camera,objetPokemon,size.y > 10 ? 2 : 65,controls)
+                        if (size.y > 10) {
+                            offset = 2
+                        }
+                        else {
+                            offset = 65
+                        }
+
+                        fitCameraToCenteredObject(camera,objetPokemon, offset,controls)
 
                         camera.position.y = 3
 
