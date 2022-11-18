@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Flexo-Medium'; /*a name to be used later*/
+    src: url("../fonts/Flexo-Medium.ttf"); /*URL to font*/
+}
+
+#pokeballIcon{
+    width: 20px;
+    height: 20px;
+    background-image:url("../image/PokeballEmpty.png");
+    background-size: 20px;
+}
+
+#pokemonListItem:hover  #pokeballIcon{
+    background-image:url("../image/Pokeball.png");
+}
+
+#pokemon-info-column-content{
+    font-family: 'Flexo-Medium';
+    clear: both;
+    color: #212121;
+    float: left;
+    font-size: 125%;
+    margin: 0.75em 1.5em 0 1em;
+    white-space: normal;
+    word-break: break-word;
+}
+
+#pokemon-info-column-category{
+    font-family: 'Flexo-Medium';
+    clear: both;
+    color: #fff;
+    float: left;
+    font-size: 100%;
+    margin: 0.75em 0 0 0.75em;
+    text-transform: none;
+    white-space: normal;
+    word-break: break-word;
+}
+
