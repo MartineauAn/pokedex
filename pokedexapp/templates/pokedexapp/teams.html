@@ -8,16 +8,26 @@
 
 <div class="flex flex-col h-screen">
     <div class="h-16 w-full sticky top-0 z-50 bg-gray-100">
-        <div class="flex justify-end">
-           <input type="text" placeholder="Nom d'équipe" id="team_name" class="w-64 p-2 m-2 rounded-md border border-black placeholder:font-italic">
-            {% csrf_token %}
-            <button class="p-2 bg-green-600 hover:bg-green-800 rounded-md m-2 text-white font-bold" onclick="addTeam()">
-                Ajouter
-            </button> 
+        <div class="flex justify-between h-16">
+            <div class="flex justify-start">
+                <div class=" border-r border-gray-300">
+                    <a href="{% url 'index' %}"><img class="h-12 m-2" src="{% static 'pokedexapp/images/equipe_menu.png' %}" alt=""></a>
+                </div>
+                <div class="ml-2 flex items-center">
+                    <a class="text-gray-400 text-2xl hover:text-gray-600" href="{% url 'pokedex' %}">Pokédex</a>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <input type="text" placeholder="Nom d'équipe" id="team_name" class="w-64 p-2 m-2 rounded-md border border-black placeholder:font-italic">
+                 {% csrf_token %}
+                 <button class="p-2 bg-green-600 hover:bg-green-800 rounded-md m-2 text-white font-bold" onclick="addTeam()">
+                     Ajouter
+                 </button> 
+             </div>
         </div>
     </div>
     
-    <div id="teams" class="grid grid-cols-8 gap-1 flex-grow m-3"></div>
+    <div id="teams" class="overflow-auto flex-grow m-3"></div>
 </div>
 
         <!-- overlay -->
@@ -31,19 +41,18 @@
             <div
                 class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
                 <div
-                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                class="modal-header flex flex-shrink-0 items-center sticky top-0 bg-white justify-between p-4 border-b border-gray-200 rounded-t-md">
                 <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
-                    Choisis son pokémon ! 
+                    Choisis un pokémon ! 
                 </h5>
-                <button type="button"
-                    class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                    data-bs-dismiss="modal" aria-label="Close"></button>
+                <input type="text" onkeyup="chercher(this)" placeholder="Recherche..." class="w-2/3 p-2 m-2 rounded-md border border-black placeholder:font-italic">
+                <i class="fa-solid fa-xmark text-4xl hover:cursor-pointer text-gray-400 hover:text-gray-600" onclick="openModal(false)"></i>
                 </div>
-                <div class="modal-body relative p-4 grid grid-cols-5 gap-3">
+                <div id="pokemon_list" class="modal-body p-4 grid grid-cols-5 gap-3">
                 {% for pokemon in pokemon.results %}
 
 
-                <div class="flex flex-col w-full items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-300 hover:cursor-pointer dark:bg-gray-200 dark:hover:bg-gray-700" onclick="updateTeam('{{ forloop.counter }}')">
+                <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" class="affichage flex flex-col w-full items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-300 hover:cursor-pointer dark:bg-gray-200 dark:hover:bg-gray-700" onclick="updateTeam('{{ forloop.counter }}')">
                     <img class="object-cover w-1/3 rounded-t-lg h-1/3 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{% static 'pokedexapp/images/sprites/' %}{{ forloop.counter }}{{'.png'}}" alt="">
                     <div class="flex flex-col justify-between p-4 leading-normal">
                         <h5 class="mb-2 text-l font-bold tracking-tight text-gray-900 dark:text-white"> #{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}</h5>
@@ -53,61 +62,15 @@
 
                 {% endfor %}
                 </div>
-                <div
-                class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                <button type="button"
-                    class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
-                    data-bs-dismiss="modal"
-                    onclick="openModal(false)"
-                    >
-                    Close
-                </button>
-                </div>
-            </div>
-            </div>
-        
-        <!-- <button 
-        onclick="openModal(false)"
-        class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white">
-        &cross;
-        </button>
-    
-        <div class="px-4 py-3 border-b border-gray-200">
-        <h2 class="text-xl font-semibold text-gray-600">Choisir un pokémon</h2>
-        </div>
-    
-        <div class="modal-body relative p-4">
-            <div class="grid grid-cols-6 gap-4">
-
-
-                {% for pokemon in pokemon.results %}
-
-                <div class="flex flex-col w-36 items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img class="object-cover w-1/3 rounded-t-lg h-1/3 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-l font-bold tracking-tight text-gray-900 dark:text-white">{{pokemon.number}}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{pokemon.name}}</p>
-                    </div>
-                </div>
-
-                {% endfor %}
             </div>
         </div>
-    
-        <div class="absolute bottom-0 left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
-        <button class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white focus:outline-none">Save</button>
-        <button 
-            onclick="openModal(false)"
-            class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none"
-        >Close</button>
-        </div>
-    </div>
-     -->
     </div>
 
 {% endblock content %}
 
 {% block scripts %}
+
+<script src="{% static 'pokedexapp/searchPokemon.js' %}"></script>
 
 <script>
     const urlu = "{% url 'teamUpdate' %}";
@@ -123,6 +86,30 @@
 
     const modal_overlay = document.querySelector('#modal_overlay');
     const modal = document.querySelector('#modal');
+
+    function teamName(id){
+        let name = document.querySelector("#input_" + id)
+        let token = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+        if(name != ""){
+            let formData = new FormData();
+            formData.append('name', name.value);
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/teams/update/name/" + id, true);
+            xhr.setRequestHeader("X-CSRFToken",token);
+            xhr.send(formData);
+
+            xhr.onload = function(){
+                if(xhr.status == 200){
+                    //refreshTeams();
+                    toastr.success(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+                }
+                else {
+                    toastr.error(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
+                }
+            }
+        }
+    }
 
     function openModal (value, t = 0, p = 0){
         const modalCl = modal.classList
@@ -221,8 +208,7 @@
             }
         }
     };
-    refreshTeams();
-
+   
     function refreshTeams(){
         let xhr = new XMLHttpRequest()
 
@@ -233,8 +219,20 @@
             }
         }
         xhr.send();
-    };
+    }; 
+
+    document.addEventListener('keyup', function(e) {
+        if (e.keyCode == 27) {
+            openModal(false);
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if(e.target == document.getElementById("modal_overlay")){
+            openModal(false);
+        }
+    });
+    
     refreshTeams();
-    //openModal(true)
 </script>
 {% endblock scripts %}

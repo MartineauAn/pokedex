@@ -75,7 +75,26 @@ def teamUpdate(request):
             return JsonResponse({"message": "Erreur dans les paramètres"}, status=500)
 
     return JsonResponse({"message": "Une erreur est survenue"}, status=500)
-            
+
+def teamNameUpdate(request,id):
+    if request.method == 'POST':
+        if request.POST.get("name") != "":
+            name = request.POST.get("name")
+            try:
+                team = Teams.objects.get(name=name)
+                if team.id == id:
+                    return JsonResponse({"message": "Veuillez entrer un nom différent"}, status=500)
+                else:
+                    return JsonResponse({"message": "Équipe déjà existante"}, status=500)
+            except:
+                team = Teams.objects.get(id=id)
+                team.name = name
+                team.save()
+                return JsonResponse({"message": "Nom de l'équipe modifié avec succès"})
+
+    return JsonResponse({"message": "Une erreur est survenue"}, status=500)
+
+
 def teamDelete(request, team):
     if request.method == 'DELETE':
         try:

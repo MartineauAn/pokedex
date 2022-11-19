@@ -39,7 +39,7 @@
             </div>
             <div id="pokemon_list" class="overflow-auto row-span-1 row-span-5 h-full">
                 {% for pokemon in pokemon.results %}
-                    <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" onclick="afficher({{forloop.counter}})" class="affichage m-2 shadow-md bg-gradient-to-r from-red-500 via-red-600 to-red-800 border-sm border-black rounded-l-full p-3 hover:bg-gradient-to-r hover:from-red-900 hover:via-red-600 hover:to-red-900 hover:cursor-pointer">
+                    <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" onclick="afficher({{forloop.counter}})" class="affichage flex m-2 shadow-md bg-gradient-to-r from-red-500 via-red-600 to-red-800 border-sm border-black rounded-l-full p-3 hover:bg-gradient-to-r hover:from-red-900 hover:via-red-600 hover:to-red-900 hover:cursor-pointer">
                         <div class="flex justify-start ml-2 font-bold items-center">
                             <img class="object-cover w-16 h-16 rounded-t-lg md:h-auto md:rounded-none md:rounded-l-lg" src="{% static 'pokedexapp/images/sprites/' %}{{ forloop.counter }}{{'.png'}}" alt="">
                             <p class="text-white font-bold">#{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }} - {{ pokemon.name }}</p>
@@ -55,6 +55,7 @@
 {% endblock content %}
 
 {% block scripts %}
+    <script src="{% static 'pokedexapp/searchPokemon.js' %}"></script>
     <script src="./static/pokedexapp/three.js"></script>
     <script src="./static/pokedexapp/orbitControls.js"></script>
     <script src="./static/pokedexapp/gtlfLoader.js"></script>
@@ -128,40 +129,6 @@
             httpRequest.send();
             
         }
-
-        function chercher(object){
-
-            if(object.value != ""){
-                elems = document.querySelectorAll("#pokemon_list .affichage:not([id*='" + object.value + "'])");
-                elemsV = document.querySelectorAll("#pokemon_list .affichage[id*='" + object.value + "']");
-
-                hide(elems);
-                show(elemsV);
-            }
-            else{
-                elems = document.querySelectorAll("#pokemon_list .affichage");
-
-                show(elems);
-            }
-            
-
-
-        }
-
-        function hide(elements){
-            elements.forEach(element => {
-                element.hidden = true;
-            });
-        }
-
-        function show(elements){
-            elements.forEach(element => {
-                element.hidden = false;
-            });  
-        }
-
-
-
 
     </script>
 {% endblock scripts %}

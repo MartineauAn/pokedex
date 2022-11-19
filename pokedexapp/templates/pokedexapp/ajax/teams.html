@@ -1,65 +1,81 @@
 
 
 {% for team in teams %}
-    <div class="flex justify-center w-full h-full">
-        <div class="flex justify-center h-1/6">
+    <div class="w-full grid grid-rows-4 grid-flow-cols mt-3 shadow-lg bg-gradient-to-b from-gray-300 to-gray-100 overflow-x-hidden overflow-y-hidden rounded-md">
+        <div class="row-span-1 flex justify-end pr-3">
+            <input id="input_{{ team.id }}" class="p-2 mt-2 mb-2 w-1/3 border rounded-md border-gray-200 mr-1" type="text" id="team_name_update" value="{{ team.name }}">
+            <button class="p-2 pl-4 pr-4 mt-2 mb-2 ml-1 rounded-md bg-white hover:bg-gray-500 border-2 border-gray-500 hover:text-white text-black" onclick="teamName('{{ team.id }}')" ><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="p-2 pl-4 pr-4 mt-2 mb-2 mr-1 ml-1 rounded-md bg-white hover:bg-red-500 border-2 border-red-500 hover:text-white text-red-500" onclick="deleteTeam('{{ team.id }}')" ><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="row-span-3 w-full pr-3 mr-1">
+            <div class="w-full grid grid-cols-6 gap-1 h-full">
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 1)">
+                    {% if team.pokemon_1_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_1_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}
+                </div>  
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 2)">
+                    {% if team.pokemon_2_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_2_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}
+                </div>  
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 3)">
+                    {% if team.pokemon_3_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_3_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}
+                </div>  
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 4)">
+                    {% if team.pokemon_4_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_4_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}
+                </div>  
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 5)">
+                    {% if team.pokemon_5_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_5_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}
+                </div>  
+                <div class="hover:cursor-pointer mt-1 hover:scale-110 flex justify-center iteams-center" onclick="openModal(true, '{{ team.id }}' , 6)">
+                    {% if team.pokemon_6_id != None %}
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_6_id }}.png">
+                    {% else %}
+                        <div class="flex justify-center items-center h-full w-full">
+                            <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                    {% endif %}   
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endfor %} 
+
+
+<!--
+    <div class="flex justify-center h-1/6 w-full">
             {{ team.name }}
         </div>
-        <div class="flex justify-center rounded-full bg-gray-100 w-5/6 h-5/6 grid grid-rows-6 grid-flow-col gap-1">
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer mt-1 hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 1)">
-                {% if team.pokemon_1_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_1_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}
-            </div>  
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 2)">
-                {% if team.pokemon_2_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_2_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}
-            </div>  
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 3)">
-                {% if team.pokemon_3_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_3_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}
-            </div>  
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 4)">
-                {% if team.pokemon_4_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_4_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}
-            </div>  
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 5)">
-                {% if team.pokemon_5_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_5_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}
-            </div>  
-            <div class="rounded-full bg-gray-300 w-16 h-16 hover:cursor-pointer hover:scale-110" onclick="openModal(true, '{{ team.id }}' , 6)">
-                {% if team.pokemon_6_id != None %}
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ team.pokemon_6_id }}.png">
-                {% else %}
-                    <div class="flex justify-center items-center h-full w-full">
-                        <p class="text-4xl"><i class="fa-solid fa-plus"></i></p>
-                    </div>
-                {% endif %}   
-            </div>
+        <div class="flex justify-center items-center rounded-full bg-gray-100 w-5/6 h-5/6 grid grid-cols-7 grid-flow-col gap-1">
+            <div></div>
         </div>
         <div class="flex justify-center">
             <button class="p-2 m-3 bg-red-600 hover:bg-red-800 rounded-md" onclick="deleteTeam('{{ team.id }}')">
@@ -68,6 +84,5 @@
                 </p>
             </button>
         </div>
-    </div>
-{% endfor %} 
+-->
 
