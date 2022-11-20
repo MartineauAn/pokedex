@@ -2,7 +2,6 @@ const container = document.querySelector("#pokemon")
 const scene = new THREE.Scene();
 var objetPokemon;
 const camera = new THREE.PerspectiveCamera(50,window.innerWidth / window.innerHeight,1, 1000);
-console.log(container)
 const renderer = new THREE.WebGLRenderer({ alpha: true});
 renderer.setClearColor( 0x000000, 0 );
 renderer.setPixelRatio(container.devicePixelRatio);
