@@ -101,7 +101,6 @@
 
             xhr.onload = function(){
                 if(xhr.status == 200){
-                    //refreshTeams();
                     toastr.success(JSON.parse(xhr.responseText).message, '', {timeOut: 3000})
                 }
                 else {

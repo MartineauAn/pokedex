@@ -15,7 +15,51 @@ def pokedex(request):
         pokemon = req.json()
     else :
         pokemon = {}
-    return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon})
+
+    req = requests.get("https://pokeapi.co/api/v2/type")
+    if req.status_code == 200 :
+        types = req.json()
+        for type in types["results"]:
+            if type["name"] == "normal":
+                type["color"] = "bg-stone-400"
+            elif type["name"] == "fire":
+                type["color"] = "bg-orange-500"
+            elif type["name"] == "water":
+                type["color"] = "bg-blue-500"
+            elif type["name"] == "grass":
+                type["color"] = "bg-green-400" 
+            elif type["name"] == "electric":
+                type["color"] = "bg-yellow-300"
+            elif type["name"] == "ice":
+                type["color"] = "bg-cyan-400"
+            elif type["name"] == "fighting":
+                type["color"] = "bg-amber-700"     
+            elif type["name"] == "poison":
+                type["color"] = "bg-violet-600"
+            elif type["name"] == "ground":
+                type["color"] = "bg-yellow-600"  
+            elif type["name"] == "flying":
+                type["color"] = "bg-purple-400"
+            elif type["name"] == "psychic":
+                type["color"] = "bg-pink-500"
+            elif type["name"] == "bug":
+                type["color"] = "bg-lime-600"
+            elif type["name"] == "rock":
+                type["color"] = "bg-yellow-700"
+            elif type["name"] == "ghost":
+                type["color"] = "bg-violet-900"
+            elif type["name"] == "dark":
+                type["color"] = "bg-yellow-900"
+            elif type["name"] == "dargon":
+                type["color"] = "bg-purple-800"
+            elif type["name"] == "steel":
+                type["color"] = "bg-gray-400" 
+            elif type["name"] == "fairy":
+                type["color"] = "bg-rose-400"                                                               
+    else :
+        types = {}
+
+    return render(request,"pokedexapp/pokedex.html",{"pokemon":pokemon,"types":types})
 
 def teams(request):
     req = requests.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=151")

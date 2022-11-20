@@ -2,6 +2,11 @@
 
 {% load static %}
 {% block styles %}
+<style>
+    .pokedexSize{
+        height: calc(100vh - 64px);
+    }
+</style>
 {% endblock styles %}
 
 {% block content %}
@@ -17,51 +22,47 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <input type="text" placeholder="Recherche..." id="team_name" class="w-64 p-2 m-2 rounded-md placeholder:text-red-700 border border-red-600 focus:outline focus:outline-1 focus:outline-red-600 placeholder:font-italic">
+                <label class="inline-flex relative items-center cursor-pointer sm:pr-1 md:pr-3 lg:pr-3">
+                    <input id="showSprite" type="checkbox" checked class="sr-only peer" onchange="showSprite()">
+                    <div class="w-11 h-6 bg-red-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:mt-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    <span class="ml-3 text-sm text-red-600 font-bold">Mode 3D</span>
+                </label>
+                <input onkeyup="chercher(this)" type="text" placeholder="Recherche..." id="team_name" class="w-64 p-2 m-2 rounded-md placeholder:text-red-700 border border-red-600 focus:outline focus:outline-1 focus:outline-red-600 placeholder:font-italic">
              </div>
         </div>
     </div>
-    <div class="flex bg-gray-100 h-full">
-        <div class="flex-1">
-            <div class="justify-between mx-auto w-3/4 mt-5">
-                <div id="name" class="font-extrabold">
-                      
+    <div class="w-full flex-grow">
+        <div class="grid grid-cols-3 grid-rows-1 pokedexSize">
+            <div class="col-span-2">
+                <div class="flex justify-start mx-auto w-2/3 mt-5 bg-red-300 border-l-4 border-r-4 border-t-4 border-b-2 border-red-600 rounded-tr-xl rounded-tl-xl">
+                    <div id="number" class="font-bold p-3 flex border-r-2 border-red-600 text-red-600"></div>
+                    <div id="name" class="font-bold p-3 text-red-600 text-red-600"></div>
                 </div>
-                <div id="number" class="font-extrabold">
-                      
+                <div id="pokemon" class="border-r-4 border-l-4 border-red-600 mx-auto h-2/3 w-2/3"></div> 
+                <img id="spritepokemon" class="border-r-4 border-l-4 border-red-600 mx-auto h-2/3 w-2/3" src="" hidden>
+
+                <div class="mx-auto w-2/3 bg-red-300 border-l-4 border-r-4 border-b-4 border-t-2 border-red-600 rounded-br-xl rounded-bl-xl">
+                    <div id="weight" class="flex justify-start p-2 w-full border-b-2 border-red-600 font-bold text-red-600"></div>
+                    <div id="types" class="p-1 flex justify-end"></div> 
+                </div> 
+            </div>
+            <div class="col-span-1 overflow-auto">
+                <div class="grid grid-rows-1">
+                    <div id="pokemon_list" class="">
+                        {% for pokemon in pokemon.results %}
+                            <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" onclick="afficher({{forloop.counter}})" class="affichage flex m-2 shadow-md bg-gradient-to-r from-red-500 via-red-600 to-red-800 border-sm border-black rounded-l-full p-3 hover:bg-gradient-to-r hover:from-red-900 hover:via-red-600 hover:to-red-900 hover:cursor-pointer">
+                                <div class="flex justify-start ml-2 font-bold items-center">
+                                    <img class="object-cover w-16 h-16 rounded-t-lg md:h-auto md:rounded-none md:rounded-l-lg" src="{% static 'pokedexapp/images/sprites/' %}{{ forloop.counter }}{{'.png'}}" alt="">
+                                    <p class="text-white text-2xl font-bold">#{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }} - {{ pokemon.name }}</p>
+                                </div>   
+                            </div>
+                        {% endfor %}
+                    </div>    
                 </div>
             </div>
-            <div class="container mx-auto"></div>
-
-            <label class="inline-flex relative items-center cursor-pointer">
-                <input id="showSprite" type="checkbox" class="sr-only peer" onchange="showSprite()">
-                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Sprite</span>
-            </label>
-
-            <div id="pokemon" class="border-4 border-sky-500 mx-auto h-2/3 w-2/3 mt-5 rounded-xl shadow-2xl"></div> 
-            <img id="spritepokemon" class="border-4 border-sky-500 mx-auto h-2/3 w-2/3 mt-5 rounded-xl shadow-2xl" src="" hidden>
-
-            <div id="tags" class="mx-auto w-3/4 flex justify-end">
-
-            </div> 
         </div>
-        <div class="flex-1 overflow-auto grid grid-rows-6 grid-flow-col gap-4">
-            <div class="flex justify-center p-1 m-2 row-span-1 h-16">
-                <input type="text" onkeyup="chercher(this)" class="p-3 w-11/12" placeholder="Rechercher...">
-            </div>
-            <div id="pokemon_list" class="overflow-auto row-span-1 row-span-5 h-full">
-                {% for pokemon in pokemon.results %}
-                    <div id="{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }}_{{ pokemon.name }}" onclick="afficher({{forloop.counter}})" class="affichage flex m-2 shadow-md bg-gradient-to-r from-red-500 via-red-600 to-red-800 border-sm border-black rounded-l-full p-3 hover:bg-gradient-to-r hover:from-red-900 hover:via-red-600 hover:to-red-900 hover:cursor-pointer">
-                        <div class="flex justify-start ml-2 font-bold items-center">
-                            <img class="object-cover w-16 h-16 rounded-t-lg md:h-auto md:rounded-none md:rounded-l-lg" src="{% static 'pokedexapp/images/sprites/' %}{{ forloop.counter }}{{'.png'}}" alt="">
-                            <p class="text-white font-bold">#{% if forloop.counter < 10 %}00{% elif forloop.counter < 100 %}0{% endif %}{{ forloop.counter }} - {{ pokemon.name }}</p>
-                        </div>   
-                    </div>
-                {% endfor %}
-                </div>   
-            
-        </div>
+        
+        
     </div>
 </div>
     
@@ -77,17 +78,21 @@
     <script src="./static/pokedexapp/pokemon.js"></script>
     <script>
 
-        const dimRef = {
-            x: 0.036014377111069695,
-            y: 0.04604668111333994,
-            z: 0.054992468419668206
-        }
-
-        afficher(1);
+        var types = [];
 
         function showSprite(){
             document.querySelector("#spritepokemon").hidden = !document.querySelector("#spritepokemon").hidden
             document.querySelector("#pokemon").hidden = !document.querySelector("#pokemon").hidden
+        }
+
+        function getTypes(){
+            
+            types.push("");
+
+            {% for type in types.results %}
+            types.push({name :"{{ type.name }}", color: "{{ type.color }}"})
+            {% endfor %}
+
         }
 
 
@@ -99,8 +104,20 @@
                     const pokemons = JSON.parse(this.response)
                     document.querySelector("#name").innerHTML = String(pokemons.name).toUpperCase()
                     document.querySelector("#number").innerHTML = (pokemons.id < 10 ? "00" : pokemons.id < 100 ? "0" : "") + pokemons.id
-                    
+                    document.querySelector("#weight").innerHTML = "Poids : " + (pokemons.weight / 10) + " kg"
+
                     document.querySelector("#spritepokemon").src = "{% static 'pokedexapp/images/sprites/' %}" + pokemons.id + ".png"
+                    var badges = "";
+                    pokemons.types.forEach((type) => {
+                        let find = types.filter(element => element.name == type.type.name)
+                        if (find.length = 1){
+                            find = find[0]
+                            badges += "<span class='p-2 m-2 rounded-md border-2 border-black text-white font-bold " + find.color + "'>" + type.type.name.toUpperCase() + "</span>"
+                        }
+                        
+                    })
+
+                    document.querySelector("#types").innerHTML = badges
 
                     if (objetPokemon != undefined){
                        scene.remove(objetPokemon); 
@@ -112,27 +129,30 @@
                     function ( gltf ) {
                         
                         objetPokemon = gltf.scene;
-
-                        console.log(objetPokemon.position)
-
                         objetPokemon.position.set(0,0,0);
-
                         objetPokemon.rotateY(0.40)
 
                         const box = new THREE.Box3().setFromObject(objetPokemon); 
                         const size = box.getSize(new THREE.Vector3());
 
-                        console.log(size)
-
-                        if (size.y > 10) {
+                        if (pokemons.id == 93) {
+                            offset = 3
+                        }
+                        else if(pokemons.id == 92){
+                            offset = 1
+                        }
+                        else if(size.y > 10 || pokemons.id == 97){
                             offset = 2
                         }
                         else {
                             offset = 65
+                            
                         }
 
-                        fitCameraToCenteredObject(camera,objetPokemon, offset,controls)
+                        console.log(offset)
 
+                        fitCameraToCenteredObject(camera,objetPokemon, offset,controls)
+                        
                         camera.position.y = 3
 
                         scene.add(objetPokemon);
@@ -142,8 +162,11 @@
                 }
             }
             httpRequest.send();
-            
         }
+
+        getTypes()
+
+        afficher(1);
 
     </script>
 {% endblock scripts %}
