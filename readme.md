@@ -5,8 +5,8 @@
 	- Se placer dedans via un cmd ou le terminal de vscode
 	- Executer la commande "pip  install  virtualenv" pour installer les environnements virutels
 	- Créer l'environnement virtuel pour le pokédex avec : "python -m venv django-pokedex"
-	- toujours dans le dossier python utiliser la commande : "django-pokedex\Scripts\activate"
-	- Si erreur à la commande précédentte, utiliser : "Set-ExecutionPolicy Unrestricted -Force"
+	- Toujours dans le dossier python utiliser la commande : "django-pokedex\Scripts\activate"
+	- Si erreur à la commande précédente, utiliser : "Set-ExecutionPolicy Unrestricted -Force"
 	- Sinon il devrait y avoir "(django-pokedex)" dans le terminal
 
 # Récupération du projet
@@ -25,7 +25,7 @@
 
 ## Technologies utilisées 
 
-Ce projet à été réalisé à l'aide du framework python [Django](https://www.djangoproject.com/) pour la partie backend.
+Ce projet a été réalisé à l'aide de [Django](https://www.djangoproject.com/), un framework opensource web en Python, pour la partie backend.
 
 Afin de rendre l'experience utilisateur plus agréable et d'éviter des chargements de pages fréquents, nous avons utilisé des requêtes [AJAX](https://developer.mozilla.org/fr/docs/Web/Guide/AJAX) pour l'affichage des pokémon.
 
@@ -38,23 +38,30 @@ Pour finir, nous avons testé la librairie Javascript [Three js](https://threejs
 Le projet comporte 3 vues :
 
 - Une page d'accueil pour aiguiller l'utilisateur
-- Une vue pour le pokedex avec :
+- Une vue "Pokédex" avec :
 	- Le choix des pokémons parmis une liste déroulante
-	- Une fonction de recherche de pokémon par numéro ou nom
+	- Une fonction de recherche de Pokémon par numéro ou nom
 	- L'affichage de chaque pokémon en 3D avec possibilité de le faire bouger 
-	- L'affichage des informations de chaque pokémons
-	- La possibilité de pouvoir écouter le cri de chaque pokémon
+	- L'affichage des informations de chaque pokémon
+	- La possibilité de pouvoir écouter le cri de chaque Pokémon
 	- La possibilité de l'affichage des pokémon entre 2D et 3D
-- Une vue pour la gestion des équipes avec :
-	- La possiblité d'ajouter des équipes de 6 pokémon 
-	- La possibilité d'ajouter / modifier les pokémon d'une équipes
+- Une vue "Equipes" pour la gestion des équipes Pokémon :
+	- La possiblité d'ajouter des équipes de 6 Pokémon 
+	- La possibilité d'ajouter / modifier les Pokémon d'une équipe
 	- La possiblité de changer le nom d'une équipe
 	- La possibilité de supprimer une équipe
 	- Une fonction de recherche équivalente à celle du pokédex
 
 ## Utilisation de l'api
 
-L'api des [pokémons](https://pokeapi.co/) a été utilisée pour :
-- Récupérer l'ensembles des 151 premier pokémons
-- Récupérer les informations d'un pokémon
-- Récupérer l'ensemble des types de pokémons 
+L'api des [Pokémon](https://pokeapi.co/) a été utilisée pour :
+- Récupérer l'ensemble des 151 premiers Pokémon
+- Récupérer les informations d'un Pokémon
+- Récupérer l'ensemble des types de Pokémon 
+
+# Auteurs du projet
+Ce projet a été réalisé par
+- Antoine Martineau
+- Cyprien Rimbaud
+- Nathanaël Ka
+- Alexis Def
